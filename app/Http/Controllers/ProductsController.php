@@ -12,7 +12,9 @@ class ProductsController extends Controller
     }
 
     public function store(Request $requestEloquent){
-        return Product::create($requestEloquent->all());
+        $data = $requestEloquent->all();
+        $data['user_id'] = \Auth::user()->id;
+        return Product::create($data);
     }
 
     public function update(Request $requestEloquent, Product $product){
@@ -26,8 +28,9 @@ class ProductsController extends Controller
     }
 
     public function destroy(Request $requestEloquent, Product $product){
-        $product->delete();
+        $this->authorize('delete', $product);
 
+        $product->delete();
         return $product;
     }
 }
