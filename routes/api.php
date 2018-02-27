@@ -18,6 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->prefix('v1')->group(function (){
+    Route::get('users/me', function (){
+        return \Auth::user();
+    });
+
     Route::resources([
         'products'=>'ProductsController',
         'users'=>'UsersController'
@@ -29,4 +33,8 @@ Route::middleware('auth:api')->prefix('v1')->group(function (){
     Route::put('/products/{product}','ProductsController@update');
     Route::get('/products/{product}','ProductsController@show');
     Route::delete('/products/{product}','ProductsController@destroy');*/
+});
+
+Route::get('cors_example', function (){
+    return ['status'=>'OK'];
 });
