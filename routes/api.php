@@ -26,15 +26,25 @@ Route::middleware('auth:api')->prefix('v1')->group(function (){
         'products'=>'ProductsController',
         'users'=>'UsersController'
     ]);
-    /*Route::resource('products','ProductsController');
-    OR
-    Route::get('/products','ProductsController@index');
-    Route::post('/products','ProductsController@store');
-    Route::put('/products/{product}','ProductsController@update');
-    Route::get('/products/{product}','ProductsController@show');
-    Route::delete('/products/{product}','ProductsController@destroy');*/
+    /*Route::resource('products','ProductsController');*/
 });
 
 Route::get('cors_example', function (){
     return ['status'=>'OK'];
+});
+
+Route::prefix('v2')->group(function (){
+    Route::get('bills/total','BillsController@total');
+
+    Route::resources([
+        'bills'=>'BillsController'
+    ]);
+});
+
+Route::prefix('v2')->group(function (){
+    Route::get('receives/total','ReceivesController@total');
+
+    Route::resources([
+        'receives'=>'ReceivesController'
+    ]);
 });
